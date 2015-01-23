@@ -1,0 +1,59 @@
+{
+  "project": {
+    "name": "eXoMarketplaceExtensionAddOn",
+    "visibility": "public",
+    "type": "maven",
+    "builders": {
+      "default": "maven"
+    },
+    "runners": {
+      "configs": {
+        "project:/docker/exo-marketplace-extension": {
+          "ram": 4096,
+          "variables": {},
+          "options": {}
+        }
+      },
+      "default": "project:/docker/exo-marketplace-extension"
+    },
+    "description": "eXo Platform 4.1 with marketplace addon skeleton.",
+    "attributes": {}
+  },
+  "source": {
+    "project": {
+      "location": "https://github.com/exo-addons/marketplace-extension.git",
+      "type": "git",
+      "parameters": {
+        "commitId": "dc49ccd38525a8736ba2e4f3c0b34747fc208bca"
+      }
+    },
+    "runners": {
+      "/docker/exo-marketplace-extension": {
+        "location": "https://gist.githubusercontent.com/TrGlen/281e0e471cf9d553c4fb/raw/89a561c836d2487cad6b35f5bffa29dcca91df5f/exo-marketplace-extension-docker-runner"
+      }
+    }
+  },
+  "creator": {
+    "name": "eXo",
+    "email": "codenvy@exoplatform.com",
+    "accountId": "accountqlr2zr0hznoxrjt3"
+  },
+  "actions": {
+    "findReplace": [
+      {
+        "files": [
+          "pom.xml"
+        ],
+        "entries": [
+          {
+            "find": "<modelVersion>4.0.0</modelVersion>",
+            "replace": "<modelVersion>4.0.0</modelVersion> <repositories><repository><id>exo-public-repository-group</id><name>eXo Public Maven Repository Group</name><url>http://repository.exoplatform.org/public</url><layout>default</layout><releases><enabled>true</enabled><updatePolicy>never</updatePolicy></releases><snapshots><enabled>true</enabled><updatePolicy>never</updatePolicy></snapshots></repository></repositories>",
+            "replacemode": "text_multipass"
+          }
+        ]
+      }
+    ]
+  },
+  "variables": [],
+  "v": "2.0"
+}

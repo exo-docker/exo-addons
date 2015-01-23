@@ -1,0 +1,39 @@
+FROM teknologist/exo-maven-setup-done
+
+ENV EXOADDON_SRC_DIR /home/${EXO_USER}/src
+USER exo
+RUN mkdir -p ${EXOADDON_SRC_DIR}
+
+#Get app src from Codenvy Project
+ADD $app_src$ ${EXOADDON_SRC_DIR}/app_src.zip
+
+#ADDON: Unpack, build 
+RUN cd ${EXOADDON_SRC_DIR} && unzip -q app_src.zip && \
+
+cd ${EXOADDON_SRC_DIR} && ${M2_HOME}/bin/mvn clean install -q -Dmaven.test.skip --batch-mode
+
+#ADDON METADATA Create the local.json on the fly in Current/addons/ dir
+RUN echo "[{\
+        \"id\": \"exo-marketplace-extension\",\
+        \"version\": \"1.0.x-SNAPSHOT\",\
+        \"unstable\": false,\
+        \"name\": \"Marketplace Extension\",\
+        \"description\": \"eXo Market Place extension helps you to manage your own catalog of Apps or Add-ons, as a real Market Place, on top of eXo Platform.\",\
+        \"releaseDate\": \"2014-11-03T23:00:00.000Z\",\
+        \"sourceUrl\": \"https://github.com/exo-addons/marketplace-extension\",\
+        \"screenshotUrl\": \"http://community.exoplatform.com/rest/jcr/repository/collaboration/sites/intranet/web%20contents/Contributions/marketplace-extention/medias/images/marketplace-list.png\",\
+        \"documentationUrl\": \"http://community.exoplatform.com/portal/intranet/addon-detail/marketplace-extension\",\
+        \"downloadUrl\": \"file:///home/exo/.m2/repository/org/exoplatform/addons/marketplace/marketplace-extension-bundle/1.0.x-SNAPSHOT/marketplace-extension-bundle-1.0.x-SNAPSHOT.zip\",\
+        \"vendor\": \"eXo\",\
+        \"author\": \"Tung Do Thanh\",\
+        \"license\": \"LGPLv3\",\
+        \"licenseUrl\": \"https://www.gnu.org/licenses/lgpl-3.0.txt\",\
+        \"mustAcceptLicense\": false,\
+        \"supportedDistributions\": \"community,enterprise\",\
+        \"supportedApplicationServers\": \"tomcat\",\
+        \"compatibility\": \"[4.1-RC1,4.1.x)\"\
+}]" > ${EXO_APP_DIR}/current/addons/local.json
+
+#ADDON Install Addon with Addon manager
+RUN cd ${EXO_APP_DIR}/current/ && \
+./addon install exo-marketplace-extension:1.0.x-SNAPSHOT --offline --snapshots --unstable
