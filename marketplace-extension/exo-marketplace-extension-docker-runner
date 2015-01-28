@@ -1,4 +1,4 @@
-FROM teknologist/exo-maven-setup-done
+FROM exoplatform/exo-maven-setup-done
 
 ENV EXOADDON_SRC_DIR /home/${EXO_USER}/src
 USER exo
