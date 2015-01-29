@@ -42,11 +42,11 @@
     "welcome": {
       "authenticated": {
         "title": "Welcome",
-        "contenturl": "http://cdn.rawgit.com/exo-docker/exo-addons/master/marketplace-extension/eXo-Marketplace-Addon.html"
+        "contenturl": "https://cdn.rawgit.com/exo-docker/exo-addons/master/marketplace-extension/eXo-Marketplace-Addon.html"
       },
       "nonauthenticated": {
         "title": "Welcome",
-        "contenturl": "http://cdn.rawgit.com/exo-docker/exo-addons/master/marketplace-extension/eXo-Marketplace-Addon.html"
+        "contenturl": "https://cdn.rawgit.com/exo-docker/exo-addons/master/marketplace-extension/eXo-Marketplace-Addon.html"
       }
     },
     "findReplace": [
