@@ -16,7 +16,7 @@
       },
       "default": "project:/docker/exo-branch-advocacy"
     },
-    "description": "eXo Platform 4.1 with marketplace addon skeleton.",
+    "description": "eXo Platform 4.1 with eXo Branch Advocacy Add-on skeleton.",
     "attributes": {}
   },
   "source": {

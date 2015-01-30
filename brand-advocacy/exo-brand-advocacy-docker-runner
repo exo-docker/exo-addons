@@ -24,7 +24,7 @@ RUN echo "[{\
         \"description\": \"Manage and reward your brand ambassadors with the Brand Advocacy Add-on. Create the missions, monitor the program workflow, and send gifts to your community.\",\
         \"releaseDate\": \"2014-11-03T23:00:00.000Z\",\
         \"sourceUrl\": \"https://github.com/exo-addons/brand-advocacy\",\
-        \"screenshotUrl\": \"http://community.exoplatform.com/rest/jcr/repository/collaboration/sites/intranet/web%20contents/Contributions/brand-advocacy/medias/images/image02.jpg",\
+        \"screenshotUrl\": \"http://community.exoplatform.com/rest/jcr/repository/collaboration/sites/intranet/web%20contents/Contributions/brand-advocacy/medias/images/image02.jpg\",\
         \"documentationUrl\": \"http://community.exoplatform.com/portal/content/addon-detail/brand-advocacy\",\
         \"downloadUrl\": \"file:///home/exo/.m2/repository/org/exoplatform/addons/brand-advocacy/brand-advocacy-bundle/1.0.x-SNAPSHOT/brand-advocacy-bundle-1.0.x-SNAPSHOT.zip\",\
         \"vendor\": \"eXo\",\
