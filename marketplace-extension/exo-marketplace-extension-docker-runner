@@ -1,5 +1,8 @@
 FROM exoplatform/exo-maven-setup-done
 
+EXPOSE 8080
+ENV CODENVY_APP_PORT_8080_HTTP 8080
+
 ENV EXOADDON_SRC_DIR /home/${EXO_USER}/src
 USER exo
 RUN mkdir -p ${EXOADDON_SRC_DIR}
