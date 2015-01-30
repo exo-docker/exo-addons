@@ -1,0 +1,69 @@
+{
+  "project": {
+    "name": "eXoBrandAdvocacy",
+    "visibility": "public",
+    "type": "maven",
+    "builders": {
+      "default": "maven"
+    },
+    "runners": {
+      "configs": {
+        "project:/docker/exo-branch-advocacy": {
+          "ram": 4096,
+          "variables": {},
+          "options": {}
+        }
+      },
+      "default": "project:/docker/exo-branch-advocacy"
+    },
+    "description": "eXo Platform 4.1 with marketplace addon skeleton.",
+    "attributes": {}
+  },
+  "source": {
+    "project": {
+      "location": "https://github.com/exo-addons/brand-advocacy.git",
+      "type": "git",
+      "parameters": {
+        "commitId": "178d254de978d6b966f7cbeba4db270ab6a000eb"
+      }
+    },
+    "runners": {
+      "/docker/exo-branch-advocacy": {
+        "location": "https://raw.githubusercontent.com/exo-docker/exo-addons/master/brand-advocacy/exo-brand-advocacy-docker-runner"
+      }
+    }
+  },
+  "creator": {
+    "name": "eXo",
+    "email": "codenvy@exoplatform.com",
+    "accountId": "accountqlr2zr0hznoxrjt3"
+  },
+  "actions": {
+    "welcome": {
+      "authenticated": {
+        "title": "Welcome",
+        "contenturl": "https://cdn.rawgit.com/exo-docker/exo-addons/master/brand-advocacy/eXo-Branch-Advocacy-Addon.html"
+      },
+      "nonauthenticated": {
+        "title": "Welcome",
+        "contenturl": "https://cdn.rawgit.com/exo-docker/exo-addons/master/brand-advocacy/eXo-Branch-Advocacy-Addon.html"
+      }
+    },
+    "findReplace": [
+      {
+        "files": [
+          "pom.xml"
+        ],
+        "entries": [
+          {
+            "find": "<modelVersion>4.0.0</modelVersion>",
+            "replace": "<modelVersion>4.0.0</modelVersion> <repositories><repository><id>exo-public-repository-group</id><name>eXo Public Maven Repository Group</name><url>http://repository.exoplatform.org/public</url><layout>default</layout><releases><enabled>true</enabled><updatePolicy>never</updatePolicy></releases><snapshots><enabled>true</enabled><updatePolicy>never</updatePolicy></snapshots></repository></repositories>",
+            "replacemode": "text_multipass"
+          }
+        ]
+      }
+    ]
+  },
+  "variables": [],
+  "v": "2.0"
+}

@@ -1,0 +1,42 @@
+FROM exoplatform/exo-maven-setup-done
+
+EXPOSE 8080
+ENV CODENVY_APP_PORT_8080_HTTP 8080
+
+ENV EXOADDON_SRC_DIR /home/${EXO_USER}/src
+USER exo
+RUN mkdir -p ${EXOADDON_SRC_DIR}
+
+#Get app src from Codenvy Project
+ADD $app_src$ ${EXOADDON_SRC_DIR}/app_src.zip
+
+#ADDON: Unpack, build 
+RUN cd ${EXOADDON_SRC_DIR} && unzip -q app_src.zip && \
+
+cd ${EXOADDON_SRC_DIR} && ${M2_HOME}/bin/mvn clean install -q -Dmaven.test.skip --batch-mode
+
+#ADDON METADATA Create the local.json on the fly in Current/addons/ dir
+RUN echo "[{\
+        \"id\": \"exo-brand-advocacy\",\
+        \"version\": \"1.0.x-SNAPSHOT\",\
+        \"unstable\": false,\
+        \"name\": \"Brand Advocacy Add-on\",\
+        \"description\": \"Manage and reward your brand ambassadors with the Brand Advocacy Add-on. Create the missions, monitor the program workflow, and send gifts to your community.\",\
+        \"releaseDate\": \"2014-11-03T23:00:00.000Z\",\
+        \"sourceUrl\": \"https://github.com/exo-addons/brand-advocacy\",\
+        \"screenshotUrl\": \"http://community.exoplatform.com/rest/jcr/repository/collaboration/sites/intranet/web%20contents/Contributions/brand-advocacy/medias/images/image02.jpg",\
+        \"documentationUrl\": \"http://community.exoplatform.com/portal/content/addon-detail/brand-advocacy\",\
+        \"downloadUrl\": \"file:///home/exo/.m2/repository/org/exoplatform/addons/brand-advocacy/brand-advocacy-bundle/1.0.x-SNAPSHOT/brand-advocacy-bundle-1.0.x-SNAPSHOT.zip\",\
+        \"vendor\": \"eXo\",\
+        \"author\": \" Vu Tuan Anh\",\
+        \"license\": \"LGPLv3\",\
+        \"licenseUrl\": \"https://www.gnu.org/licenses/lgpl-3.0.txt\",\
+        \"mustAcceptLicense\": false,\
+        \"supportedDistributions\": \"community,enterprise\",\
+        \"supportedApplicationServers\": \"tomcat\",\
+        \"compatibility\": \"[eXo Platform 4.1.0,)\"\
+}]" > ${EXO_APP_DIR}/current/addons/local.json
+
+#ADDON Install Branch Acvocacy with Addon manager
+RUN cd ${EXO_APP_DIR}/current/ && \
+./addon install exo-brand-advocacy:1.0.x-SNAPSHOT --offline --snapshots --unstable
